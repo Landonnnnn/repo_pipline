@@ -35,21 +35,23 @@ def excel_to_snowflake_etl():
     
     # Function to load all sheets from an Excel file and write them to Snowflake
     def load_and_write_excel_to_snowflake(snowflake_options: dict):
-        github_url = "https://github.com/python-vic/ETL_EXCEL_SF/raw/refs/heads/master/AdventureWorks_Sales.xlsx"  # Replace with the actual raw URL
+        github_url = "https://github.com/Landonnnnn/repo_pipline/raw/refs/heads/main/fleet_service_data.xlsx"  # Replace with the actual raw URL
 
         # Step 1: Download the Excel file from GitHub
         response = requests.get(github_url)
         if response.status_code == 200:
-            print("File downloaded successfully!")
+            print("File downloaded successfully!!!")
         else:
             raise Exception(f"Failed to download file from GitHub. Status code: {response.status_code}")
 
         # Step 2: Read the Excel file into a Pandas DataFrame
         excel_file = BytesIO(response.content)  # Treat the content as a file
+        print("File in")
         # sheets = pd.ExcelFile(excel_file)  
         # Step 1: Get all sheet names using Pandas
         excel_file = pd.ExcelFile(excel_file)
         sheet_names = excel_file.sheet_names
+        
 
         # Step 2: Load each sheet into a Spark DataFrame
         spark_dfs = {}
@@ -86,7 +88,6 @@ def excel_to_snowflake_etl():
     load_and_write_excel_to_snowflake(snowflake_options)
 
     spark.stop()
-
-
+    
 # excel_to_snowflake_etl()
 
